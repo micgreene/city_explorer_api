@@ -38,6 +38,7 @@ app.use('*', notFoundHandler);
 function handleLocation(request, response) {
   try {
     const geoData = require('./data/location.json');
+    console.log('request');
     const city = request.query.city;
     const locationData = new Location(city, geoData);
     response.send(locationData);
