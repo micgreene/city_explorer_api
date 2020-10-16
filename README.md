@@ -18,11 +18,47 @@ Info is sent via response to the frontend to be rendered onto the home page.
 ## Change Log
 10-15-2020 6:55pm - Application now is fully scaffolded.
 
+_____________________________________________________________________________________
+### Number and name of feature:  As a user of City Explorer, I want to enter the name of a location so that I can see data about the area of interest to me.
+
+** Estimate of time needed to complete: ** 1.5 hrs
+
+** Start time: ** 6:55pm
+
+** Finish time: ** 7:20pm
+
+** Actual time needed to complete: ** 25 min
+_____________________________________________________________________________________
+
 10-15-2020 7:23pm - Application now has a fully-functional express server, with a GET route for the location resource.
+
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want to request current weather information so that I can learn more about the typical weather patterns in the location I had entered.
+
+** Estimate of time needed to complete: ** 1.5 hrs
+
+** Start time: ** 7:23pm
+
+** Finish time: ** 8:05pm
+
+** Actual time needed to complete: ** 42 min
+_____________________________________________________________________________________
 
 10-15-2020 8:05pm - Application now has a GET route for the weather resource.
 
 10-15-2020 8:47pm - Application backend now can be accessed via City Explorer frontend page.
+
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want clear messages if something goes wrong so I know if I need to make any changes or try again in a different manner. (completed for sake of Lab 6)
+
+** Estimate of time needed to complete: ** 20 min
+
+** Start time: ** 8:48pm
+
+** Finish time: ** 9:45pm
+
+** Actual time needed to complete: ** 57 min
+_____________________________________________________________________________________
 
 10-15-2020 9:45pm - Verifiying application returns proper error when path routes or other data is broken.
 
