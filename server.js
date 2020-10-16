@@ -13,7 +13,7 @@ const app = express();
 app.use(cors());
 
 app.get('/', (request, response) => {
-  response.send('Home Page!');
+  response.send('Updated Home Page!');
 });
 
 app.get('/bad', (request, response) => {
@@ -38,10 +38,9 @@ app.use('*', notFoundHandler);
 function handleLocation(request, response) {
   try {
     const geoData = require('./data/location.json');
-    response.send('request');
     const city = request.query.city;
     const locationData = new Location(city, geoData);
-    response.send(locationData);
+    response.json(locationData);
   }
   catch (error) {
     console.log('ERROR', error);
@@ -71,10 +70,9 @@ function handleRestaurants(request, response) {
   }
 }
 
-function Restaurant(entry) {
-  this.restaurant = entry.restaurant.name;
-  this.cuisines = entry.restaurant.cuisines;
-  this.locality = entry.restaurant.location.locality;
+function Weather(date, forecast) {
+  this.time = date;
+  this.forecast = forecast;
 }
 
 function notFoundHandler(request, response) {
