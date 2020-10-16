@@ -29,7 +29,7 @@ function aboutUsHandler(request, response) {
 
 // API Routes
 app.get('/location', handleLocation);
-app.get('/restaurants', handleRestaurants);
+app.get('/weather', handleWeather);
 
 app.use('*', notFoundHandler);
 
@@ -55,14 +55,16 @@ function Location(city, geoData) {
   this.longitude = geoData[0].lon;
 }
 
-function handleRestaurants(request, response) {
+function handleWeather(request, response) {
   try {
-    const data = require('./data/restaurants.json');
-    const restaurantData = [];
-    data.nearby_restaurants.forEach(entry => {
-      restaurantData.push(new Restaurant(entry));
+    const data = require('./data/weather.json');
+    const weatherData = [];
+    data.data.forEach(element => {
+      let forecast = element.weather.description;
+      let date = element.valid_date;
+      weatherData.push(new Weather(date, forecast));
     });
-    response.send(restaurantData);
+    response.send(weatherData);
   }
   catch (error) {
     console.log('ERROR', error);
