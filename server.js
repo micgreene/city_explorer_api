@@ -6,6 +6,7 @@ require('dotenv').config();
 // Application Dependencies
 const express = require('express');
 const cors = require('cors');
+const superagent = require('superagent');
 
 // Application Setup
 const PORT = process.env.PORT || 3000;
@@ -13,11 +14,12 @@ const app = express();
 app.use(cors());
 
 app.get('/', (request, response) => {
-  response.send('Updated Home Page!');
+  response.send('Lab 7 - Updated Home Page!');
 });
 
 app.get('/bad', (request, response) => {
-  throw new Error('poo');
+  console.log('working bad?');
+  throw new Error();
 });
 
 // The callback can be a separate function. Really makes things readable
