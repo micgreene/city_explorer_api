@@ -58,11 +58,11 @@ function Location(city, geoData) {
 function handleWeather(request, response) {
   try {
     const data = require('./data/weather.json');
-    const weatherData = [];
-    data.data.forEach(element => {
+    let weatherData = [];
+    weatherData = data.data.map(element => {
       let forecast = element.weather.description;
       let date = element.valid_date;
-      weatherData.push(new Weather(date, forecast));
+      return new Weather(date, forecast);
     });
     response.send(weatherData);
   }
