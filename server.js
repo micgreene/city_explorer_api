@@ -39,6 +39,8 @@ function handleLocation(request, response) {
   try {
     const geoData = require('./data/location.json');
     const city = request.query.city;
+    let key = '';//my api key;
+    const URL = '';
     const locationData = new Location(city, geoData);
     response.json(locationData);
   }
