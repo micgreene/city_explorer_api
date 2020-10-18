@@ -35,11 +35,11 @@ app.use('*', notFoundHandler);
 function handleLocation(request, response) {
   try {
     //const geoData = require('./data/location.json');
-    const city = request.query.city;
+    const lCity = request.query.city;
     const lKey = process.env.GEOCODE_API_KEY;
-    const URL = `https://us1.locationiq.com/v1/search.php?key=${lKey}&q=${city}&format=json`;
+    const URL = `https://us1.locationiq.com/v1/search.php?key=${lKey}&q=${lCity}&format=json`;
     superagent.get(URL).then(data => {
-      const location = new Location(city, data.body[0]);
+      const location = new Location(lCity, data.body[0]);
       response.status(200).json(location);
     });
 
@@ -61,24 +61,21 @@ function Location(city, locData) {
 
 function handleWeather(request, response) {
   try {
-    const city = request.query.city;
+    const wCity = request.query.search_query;
     const wKey = process.env.WEATHER_API_KEY;
-    const URL = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${wKey}`;
-
+    const URL = `https://api.weatherbit.io/v2.0/forecast/daily?city=${wCity}&key=${wKey}`;
+    let weatherData = [];
     superagent.get(URL).then(data => {
-      console.log(data);
-      response.send(data);
-      //const location = new Location(city, data.body[0]);
-      //response.status(200).json(location);
+      let parsedData = JSON.parse(data.text);
+      // response.status(200).json(location);
+      weatherData = parsedData.data.map((element) => {
+        let forecast = element.weather.description;
+        let date = element.valid_date;
+        let weather = new Weather(date, forecast);
+        return weather;
+      });
+      response.status(200).json(weatherData);
     });
-    //const data = require('./data/weather.json');
-    // let weatherData = [];
-    // weatherData = data.data.map(element => {
-    //   let forecast = element.weather.description;
-    //   let date = element.valid_date;
-    //   return new Weather(date, forecast);
-    // });
-    // response.send(weatherData);
   }
   catch (error) {
     console.log('ERROR', error);
