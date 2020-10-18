@@ -17,17 +17,12 @@ app.get('/', (request, response) => {
   response.send('Lab 7 - Updated Home Page!');
 });
 
-app.get('/bad', (request, response) => {
-  console.log('working bad?');
-  throw new Error();
-});
-
 // The callback can be a separate function. Really makes things readable
-app.get('/about', aboutUsHandler);
+// app.get('/about', aboutUsHandler);
 
-function aboutUsHandler(request, response) {
-  response.status(200).send('About Us Page');
-}
+// function aboutUsHandler(request, response) {
+//   response.status(200).send('About Us Page');
+// }
 
 // API Routes
 app.get('/location', handleLocation);
@@ -39,12 +34,19 @@ app.use('*', notFoundHandler);
 
 function handleLocation(request, response) {
   try {
-    const geoData = require('./data/location.json');
+    //const geoData = require('./data/location.json');
     const city = request.query.city;
-    let key = '';//my api key;
-    const URL = '';
-    const locationData = new Location(city, geoData);
-    response.json(locationData);
+    const key = process.env.GEOCODE_API_KEY;
+    const URL = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json`;
+
+    console.log(URL);
+    superagent.get(URL).then(data => {
+      const location = new Location(city, data.body[0]);
+      response.status(200).json(location);
+    });
+
+    //const locationData = new Location(city, geoData);
+    //response.json(locationData);
   }
   catch (error) {
     console.log('ERROR', error);
@@ -52,11 +54,11 @@ function handleLocation(request, response) {
   }
 }
 
-function Location(city, geoData) {
+function Location(city, locData) {
   this.search_query = city;
-  this.formatted_query = geoData[0].display_name;
-  this.latitude = geoData[0].lat;
-  this.longitude = geoData[0].lon;
+  this.formatted_query = locData.display_name;
+  this.latitude = locData.lat;
+  this.longitude = locData.lon;
 }
 
 function handleWeather(request, response) {
