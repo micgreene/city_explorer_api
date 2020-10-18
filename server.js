@@ -36,10 +36,8 @@ function handleLocation(request, response) {
   try {
     //const geoData = require('./data/location.json');
     const city = request.query.city;
-    const key = process.env.GEOCODE_API_KEY;
-    const URL = `https://us1.locationiq.com/v1/search.php?key=${key}&q=${city}&format=json`;
-
-    console.log(URL);
+    const lKey = process.env.GEOCODE_API_KEY;
+    const URL = `https://us1.locationiq.com/v1/search.php?key=${lKey}&q=${city}&format=json`;
     superagent.get(URL).then(data => {
       const location = new Location(city, data.body[0]);
       response.status(200).json(location);
@@ -63,14 +61,24 @@ function Location(city, locData) {
 
 function handleWeather(request, response) {
   try {
-    const data = require('./data/weather.json');
-    let weatherData = [];
-    weatherData = data.data.map(element => {
-      let forecast = element.weather.description;
-      let date = element.valid_date;
-      return new Weather(date, forecast);
+    const city = request.query.city;
+    const wKey = process.env.WEATHER_API_KEY;
+    const URL = `https://api.weatherbit.io/v2.0/current?city=${city}&key=${wKey}`;
+
+    superagent.get(URL).then(data => {
+      console.log(data);
+      response.send(data);
+      //const location = new Location(city, data.body[0]);
+      //response.status(200).json(location);
     });
-    response.send(weatherData);
+    //const data = require('./data/weather.json');
+    // let weatherData = [];
+    // weatherData = data.data.map(element => {
+    //   let forecast = element.weather.description;
+    //   let date = element.valid_date;
+    //   return new Weather(date, forecast);
+    // });
+    // response.send(weatherData);
   }
   catch (error) {
     console.log('ERROR', error);
