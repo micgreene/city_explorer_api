@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Mike Greene
-**Version**: 1.0.0 
+**Version**: 2.3.7 
 
 ## Overview
 ### Problem Domain
@@ -62,6 +62,46 @@ ________________________________________________________________________________
 
 10-15-2020 9:45pm - Verifiying application returns proper error when path routes or other data is broken.
 
+10-17-2020 3:20pm - Weather array data now remains unchanged by assinging a new array let by using a .map() call.
+
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want the application to provide properly formatted data so that I can view similar data for any location I choose.
+
+** Estimate of time needed to complete: ** 1 hr
+
+** Start time: ** 3:00pm
+
+** Finish time: ** 3:22pm
+
+** Actual time needed to complete: ** 22 min
+_____________________________________________________________________________________
+
+10-17-2020 6:36pm - Backend of application now sends an API request to the locationiq API and returns location information, including latitude and longitude to the frontend server. 
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want to enter the name of a location so that I do not need to look up the latitude and longitude every time I learn about a new location.
+
+** Estimate of time needed to complete: ** 1.5 hr
+
+** Start time: ** 3:30pm
+
+** Finish time: ** 6:35pm
+
+** Actual time needed to complete: ** 3 hr 5 min
+_____________________________________________________________________________________
+
+10-17-2020 8:50pm - Backend of application now sends an API request to the weatherbit API and receives a 16 day array of weather info in response to send to the frontend server. 
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want to request current weather information at any location, so that I can learn more about the typical weather patterns in the area of interest.
+
+** Estimate of time needed to complete: ** 1.5 hr
+
+** Start time: ** 6:40pm
+
+** Finish time: ** 8:48pm
+
+** Actual time needed to complete: ** 2 hr 8 min
+_____________________________________________________________________________________
+
 
 ## Credits and Collaborations
 ### Resources:
@@ -72,6 +112,10 @@ Express
 Node
 CORS
 Heroku
+LocationIQ API
+WeatherBit API
+Postman.com
+
 
 ### Collaborators:
 Deanna Johnson
