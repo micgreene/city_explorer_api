@@ -135,7 +135,7 @@ function Trail(name, location, length, stars, votes, description, homePage, cond
   this.condition_date = conditionDate;
 }
 function notFoundHandler(request, response) {
-  response.status(404).send('huh?');
+  response.status(404).send('huh? Was something supposed to happen?');
 }
 
 
