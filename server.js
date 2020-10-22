@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 
 app.get('/', (request, response) => {
-  response.send('Lab 7 - Updated Home Page!');
+  response.send('Lab 7 - Updated Home Page! Now with TRAILS!!!');
 });
 
 // The callback can be a separate function. Really makes things readable
