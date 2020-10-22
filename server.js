@@ -27,11 +27,13 @@ app.get('/', (request, response) => {
 // API Routes
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
-app.get('/hiking', handleHiking);
+app.get('/trails', handleHiking);
 
 app.use('*', notFoundHandler);
 
 // HELPER FUNCTIONS
+let searchLat ='';
+let searchLon = '';
 
 function handleLocation(request, response) {
   try {
@@ -42,6 +44,8 @@ function handleLocation(request, response) {
     superagent.get(URL).then(data => {
       const location = new Location(lCity, data.body[0]);
       response.status(200).json(location);
+      searchLat = data.body[0].lat;
+      searchLon = data.body[0].lon;
     });
   }
   catch (error) {
@@ -86,24 +90,31 @@ function Weather(date, forecast) {
   this.forecast = forecast;
 }
 
+
 function handleHiking(request, response) {
   try {
     console.log(request);
     //const wCity = request.query.search_query;
-    const hKey = process.env.HIKING_API_KEY;
-    const URL = `https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=${hKey}`;
+    const hKey = process.env.TRAIL_API_KEY;
+    const URL = `https://www.hikingproject.com/data/get-trails?lat=${searchLat}&lon=${searchLon}&maxDistance=10&key=${hKey}`;
     let hikingTrailsData = [];
     superagent.get(URL).then(data => {
       console.log(data);
-      // let parsedData = JSON.parse(data.text);
-      // // response.status(200).json(location);
-      // weatherData = parsedData.data.map((element) => {
-      //   let forecast = element.weather.description;
-      //   let date = element.valid_date;
-      //   let weather = new Weather(date, forecast);
-      //   return weather;
-      // });
-      // response.status(200).json(weatherData);
+      let parsedData = JSON.parse(data.text);
+      hikingTrailsData = parsedData.trails.map((element) => {
+        let name = element.name;
+        let location = element.location;
+        let length = element.length;
+        let stars = element.stars;
+        let votes = element.starVotes;
+        let description = element.summary;
+        let homePage = element.url;
+        let conditions = element.conditionDetails;
+        let conditionDate = element.conditionDate;
+        let trail = new Trail(name, location, length, stars, votes, description, homePage, conditions, conditionDate)
+        return trail;
+      });
+      response.status(200).json(hikingTrailsData);
     });
   }
   catch (error) {
@@ -112,9 +123,16 @@ function handleHiking(request, response) {
   }
 }
 
-function Trails(date, forecast) {
-  this.time = date;
-  this.forecast = forecast;
+function Trail(name, location, length, stars, votes, description, homePage, conditions, conditionDate) {
+  this.name = name;
+  this.location = location;
+  this.length = length;
+  this.stars = stars;
+  this.star_votes = votes;
+  this.summary = description;
+  this.trail_url = homePage;
+  this.conditions = conditions;
+  this.condition_date = conditionDate;
 }
 function notFoundHandler(request, response) {
   response.status(404).send('huh?');
@@ -124,3 +142,5 @@ function notFoundHandler(request, response) {
 
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`App is listening on ${PORT}`));
+
+
