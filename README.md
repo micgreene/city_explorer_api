@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Mike Greene
-**Version**: 2.3.7 
+**Version**: 2.4.6 
 
 ## Overview
 ### Problem Domain
@@ -102,6 +102,18 @@ ________________________________________________________________________________
 ** Actual time needed to complete: ** 2 hr 8 min
 _____________________________________________________________________________________
 
+10-21-2020 10:45pm - Backend of application now sends an API request to the hiking project API and receives a list of top rated local trails in response to send to the frontend server. 
+_____________________________________________________________________________________
+### Number and name of feature:  As a user, I want to request information about trails and campgrounds in the area so that users can explore the location.
+
+** Estimate of time needed to complete: ** 1.5 hr
+
+** Start time: ** 9:15pm
+
+** Finish time: ** 10:49pm
+
+** Actual time needed to complete: ** 1 hr 34 min
+_____________________________________________________________________________________
 
 ## Credits and Collaborations
 ### Resources:
@@ -114,8 +126,10 @@ CORS
 Heroku
 LocationIQ API
 WeatherBit API
+HikingProject API
 Postman.com
 
 
 ### Collaborators:
 Deanna Johnson
+Felicia Walcott
