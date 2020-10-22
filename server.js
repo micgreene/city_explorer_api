@@ -27,6 +27,7 @@ app.get('/', (request, response) => {
 // API Routes
 app.get('/location', handleLocation);
 app.get('/weather', handleWeather);
+app.get('/hiking', handleHiking);
 
 app.use('*', notFoundHandler);
 
@@ -42,9 +43,6 @@ function handleLocation(request, response) {
       const location = new Location(lCity, data.body[0]);
       response.status(200).json(location);
     });
-
-    //const locationData = new Location(city, geoData);
-    //response.json(locationData);
   }
   catch (error) {
     console.log('ERROR', error);
@@ -88,6 +86,36 @@ function Weather(date, forecast) {
   this.forecast = forecast;
 }
 
+function handleHiking(request, response) {
+  try {
+    console.log(request);
+    //const wCity = request.query.search_query;
+    const hKey = process.env.HIKING_API_KEY;
+    const URL = `https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=${hKey}`;
+    let hikingTrailsData = [];
+    superagent.get(URL).then(data => {
+      console.log(data);
+      // let parsedData = JSON.parse(data.text);
+      // // response.status(200).json(location);
+      // weatherData = parsedData.data.map((element) => {
+      //   let forecast = element.weather.description;
+      //   let date = element.valid_date;
+      //   let weather = new Weather(date, forecast);
+      //   return weather;
+      // });
+      // response.status(200).json(weatherData);
+    });
+  }
+  catch (error) {
+    console.log('ERROR', error);
+    response.status(500).send('So sorry, something went wrong.');
+  }
+}
+
+function Trails(date, forecast) {
+  this.time = date;
+  this.forecast = forecast;
+}
 function notFoundHandler(request, response) {
   response.status(404).send('huh?');
 }
