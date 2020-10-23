@@ -1,7 +1,7 @@
 {
   "name": "day-1",
   "version": "1.0.0",
-  "description": "",
+  "description": "**Author**: Mike Greene **Version**: 2.4.6",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,8 +12,18 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.1.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "pg": "^8.4.1",
     "superagent": "^6.1.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micgreene/city_explorer_api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/micgreene/city_explorer_api/issues"
+  },
+  "homepage": "https://github.com/micgreene/city_explorer_api#readme"
 }

@@ -7,11 +7,15 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
+const pg = require('pg');
 
 // Application Setup
 const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
+
+//Create Postgres Client
+const client = new pg.Client(process.env.DATABASE_URL);
 
 app.get('/', (request, response) => {
   response.send('Lab 7 - Updated Home Page! Now with TRAILS!!!');
@@ -141,6 +145,10 @@ function notFoundHandler(request, response) {
 
 
 // Make sure the server is listening for requests
-app.listen(PORT, () => console.log(`App is listening on ${PORT}`));
+client.connect().then( () => {
+  app.listen(PORT, () => console.log(`App is listening on ${PORT}`));
+}).catch(err => {
+  console.log('ERROR', err);
+})
 
 
